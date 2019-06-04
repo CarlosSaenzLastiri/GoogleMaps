@@ -1,25 +1,28 @@
 <?php
+	// local 
 	
-	$mysqli = new mysqli('localhost', 'root','', 'proyectoweb');
 	
-	if($mysqli->connect_error){
-		
-		die('Error en la conexion' . $mysqli->connect_error);
-		
-	}
-		/*class conexion
-	{
-		
-		public function getconexion()
-		{
-			$user="root";
-			$pass ="";
-		    $host="localhost";
-		    $db	="conexiondb";
-		
-		
-		$con = new PDO("mysql:host=$host;dbname=$db;", $user, $pass);
-		return $con;
-		}
-	}*/
-?>
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$database = "proyectoweb";
+	
+
+		// internet
+	/*
+	$servername = 'mysql.hostinger.mx';
+	$username = 'u829331920_libro';
+	$password = 'libros';
+	$database = 'u829331920_libro';
+
+*/
+	// Crear conexión
+	$conn = mysqli_connect($servername, $username, $password, $database);
+
+	// Checar conexión
+	if (!$conn) 
+	    die("Fallo al conectar: " . mysqli_connect_error());
+
+
+?> 
+
