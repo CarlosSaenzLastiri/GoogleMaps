@@ -1,132 +1,111 @@
 <?php
-  require "conexion.php";
 
-  session_start();
-
-  if (!isset($_SESSION["usuario"])) {
-  	 die("<script>location.href='login.php';</script>");
-  }
-
-  $sql = "SELECT * FROM ubicasionsensor";
-  $resultado = $mysqli->query($sql);
-
-?>
-<!DOCTYPE html>
-<html>
-<title>Menu</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body>
-	<div id="contenedor">	
-		<?php include_once("vistas/menu.php") ?>
-		<section>
-		   <center>
-			 <? echo $_SESSION["usuario"]; ?>
-			
-
-
-
-<!-- !PAGE CONTENT! -->
-
-<style>
-
-  
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-       height: 800px;  /* The height is 400 pixels */
-        width: 100%;
-
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        
-        
-      }
-    </style>
-  </head>
-  <body>
-   <div id="map"></div>
-    <script>
-// Initialize and add the map
-function initMap() {
-
- 
-  var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 5,
-          center: {lat:  19.4978, lng: -99.1269}
-        });
-
-        // Create an array of alphabetical characters used to label the markers.
-        var labels = '12345678910';
-
-        // Add some markers to the map.
-        // Note: The code uses the JavaScript Array.prototype.map() method to
-        // create an array of markers based on a given "locations" array.
-        // The map() method here has nothing to do with the Google Maps API.
-        var markers = locations.map(function(location, i) {
-          return new google.maps.Marker({
-            position: location,
-            label: labels[i % labels.length]
-          });
-        });
-
-        // Add a marker clusterer to manage the markers.
-        var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-      }
-
-      var locations = [
-      <?php while($row = $resultado->fetch_array(MYSQLI_ASSOC)) { ?>
-        {lat: <?php echo $row['Latitud']; ?>, lng: <?php echo $row['Longitud']; ?>},
-      <?php } ?>
-      ]
-      
-    </script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAP8THbEiB_fsGhgFkWPrWCjC4hVYchc_Q&callback=initMap"
-    async defer></script>
-
-
-<script>
-// Get the Sidebar
-var mySidebar = document.getElementById("mySidebar");
-
-// Get the DIV with overlay effect
-var overlayBg = document.getElementById("myOverlay");
-
-// Toggle between showing and hiding the sidebar, and add overlay effect
-function w3_open() {
-  if (mySidebar.style.display === 'block') {
-    mySidebar.style.display = 'none';
-    overlayBg.style.display = "none";
-  } else {
-    mySidebar.style.display = 'block';
-    overlayBg.style.display = "block";
-  }
-}
-
-// Close the sidebar with the close button
-function w3_close() {
-  mySidebar.style.display = "none";
-  overlayBg.style.display = "none";
-}
-</script>
-
-
-		    
-		</section>	
-		
-	</div>
-</body>
+	require 'conexion.php';
 	
-</html>
-
+	$where = "";
+	
+	if(!empty($_POST))
+	{
+		$valor = $_POST['campo'];
+		if(!empty($valor)){
+			$where = "WHERE nombre LIKE '%$valor'";
+		}
+	}
+	$sql = "SELECT * FROM contactosensor1 $where";
+	$resultado = $mysqli->query($sql);
+	
+?>
+<html lang="es">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap-theme.css" rel="stylesheet">
+		<script src="js/jquery-3.1.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>	
+	</head>
+	
+	<body>
+		
+		<div class="container">
+			<div class="row">
+				<h2 style="text-align:center">Base De Datos</h2>
+			</div>
+			
+			<div class="row">
+				<a href="nuevo.php" class="btn btn-primary">Nuevo Registro</a>
+				
+				<form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+					<b>Nombre: </b><input type="text" id="campo" name="campo" />
+					<input type="submit" id="enviar" name="enviar" value="Buscar" class="btn btn-info" />
+				</form>
+			</div>
+			
+			<br>
+			
+			<div class="row table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Nombre</th>
+							<th>Apellidos</th>
+							<th>Edad</th>
+							<th>Sexo</th>
+							<th>Telefonofijo</th>
+							<th>Telefonocelular</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<?php while($row = $resultado->fetch_array(MYSQLI_ASSOC)) { ?>
+							<tr>
+								<td><?php echo $row['id']; ?></td>
+								<td><?php echo $row['nombre']; ?></td>
+								<td><?php echo $row['apellidos']; ?></td>
+								<td><?php echo $row['edad']; ?></td>
+								<td><?php echo $row['sexo']; ?></td>
+								<td><?php echo $row['telefonofijo']; ?></td>
+								<td><?php echo $row['telefonocelular']; ?></td>
+								<td><a href="modificar.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+								<td><a href="#" data-href="eliminar.php?id=<?php echo $row['id']; ?>" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+							</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Eliminar Registro</h4>
+					</div>
+					
+					<div class="modal-body">
+						¿Desea eliminar este registro?
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<a class="btn btn-danger btn-ok">Delete</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			$('#confirm-delete').on('show.bs.modal', function(e) {
+				$(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+				
+				$('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+			});
+		</script>	
+		
+	</body>
+</html>	
