@@ -1,6 +1,6 @@
 <?php
 
-	require 'conexion.php';
+require 'conexion.php';
 	
 	$where = "";
 	
@@ -8,10 +8,10 @@
 	{
 		$valor = $_POST['campo'];
 		if(!empty($valor)){
-			$where = "WHERE nombre LIKE '%$valor'";
+			$where = "WHERE id LIKE '%$valor'";
 		}
 	}
-	$sql = "SELECT * FROM contactosensor1 $where";
+	$sql = "SELECT * FROM ubicasionsensor $where";
 	$resultado = $mysqli->query($sql);
 	
 ?>
@@ -47,12 +47,15 @@
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>Nombre</th>
-							<th>Apellidos</th>
-							<th>Edad</th>
-							<th>Sexo</th>
-							<th>Telefonofijo</th>
-							<th>Telefonocelular</th>
+							<th>Tipo Instalacion</th>
+							<th>Nombre Empresa o Institucion</th>
+							<th>Colonia</th>
+							<th>Cp</th>
+							<th>Localidad</th>
+							<th>Municipio</th>
+							<th>Estado</th>
+							<th>Latitud</th>
+							<th>Longitud</th>
 							<th></th>
 							<th></th>
 						</tr>
@@ -62,12 +65,15 @@
 						<?php while($row = $resultado->fetch_array(MYSQLI_ASSOC)) { ?>
 							<tr>
 								<td><?php echo $row['id']; ?></td>
-								<td><?php echo $row['nombre']; ?></td>
-								<td><?php echo $row['apellidos']; ?></td>
-								<td><?php echo $row['edad']; ?></td>
-								<td><?php echo $row['sexo']; ?></td>
-								<td><?php echo $row['telefonofijo']; ?></td>
-								<td><?php echo $row['telefonocelular']; ?></td>
+								<td><?php echo $row['Tipo_Instalacion']; ?></td>
+								<td><?php echo $row['Nombre_empresa_o_Institucion']; ?></td>
+								<td><?php echo $row['Colonia']; ?></td>
+								<td><?php echo $row['Cp']; ?></td>
+								<td><?php echo $row['Localidad']; ?></td>
+								<td><?php echo $row['Municipio']; ?></td>
+								<td><?php echo $row['Estado']; ?></td>
+								<td><?php echo $row['Latitud']; ?></td>
+								<td><?php echo $row['Longitud']; ?></td>
 								<td><a href="modificar.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
 								<td><a href="#" data-href="eliminar.php?id=<?php echo $row['id']; ?>" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 							</tr>

@@ -3,17 +3,18 @@
 	require 'conexion.php';
 
 	$id = $_POST['id'];
-	$nombre = $_POST['nombre'];
-	$apellidos = $_POST['apellidos'];
-	$edad = $_POST['edad'];
-	$sexo = $_POST['sexo'];
-	$telefonofijo = $_POST['telefonofijo'];
-	$telefonocelular = $_POST['telefonocelular'];
+	$Tipo_Instalacion = $_POST['Tipo_Instalacion'];
+	$Nombre_empresa_o_Institucion = $_POST['Nombre_empresa_o_Institucion'];
+	$Colonia = $_POST['Colonia'];
+	$Cp = $_POST['Cp'];
+	$Localidad = $_POST['Localidad'];
+	$Municipio = $_POST['Municipio'];
+	$Estado = $_POST['Estado'];
 	
 	
 	
 	
-	$sql = "UPDATE contactosensor1 SET nombre='$nombre', apellidos='$apellidos', edad='$edad', sexo='$sexo', telefonofijo='$telefonofijo', telefonocelular='$telefonocelular' WHERE id = '$id'";
+	$sql = "UPDATE ubicasionsensor SET Tipo_Instalacion='$Tipo_Instalacion', Nombre_empresa_o_Institucion='$Nombre_empresa_o_Institucion', Colonia='$Colonia' , Cp='$Cp', Localidad='$Localidad', Municipio='$Municipio', Estado='$Estado' WHERE id = '$id'";
 	$resultado = $mysqli->query($sql);
 	
 ?>

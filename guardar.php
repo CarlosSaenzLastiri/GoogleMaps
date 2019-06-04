@@ -2,19 +2,26 @@
 	
 
 	
+
+	
 	require 'conexion.php';
 	
-	$nombre = $_POST['nombre'];
-	$apellidos = $_POST['apellidos'];
-	$edad = $_POST['edad'];
-	$sexo = $_POST['sexo'];
-	$telefonofijo = $_POST['telefonofijo'];
-	$telefonocelular = $_POST['telefonocelular'];
+	$Tipo_Instalacion = $_POST['Tipo_Instalacion'];
+	$Nombre_empresa_o_Institucion = $_POST['Nombre_empresa_o_Institucion'];
+	$Colonia = $_POST['Colonia'];
+	$Cp = $_POST['Cp'];
+	$Localidad = $_POST['Localidad'];
+	$Municipio = $_POST['Municipio'];
+	$Estado = $_POST['Estado'];
+	$Latitud = $_POST['Latitud'];
+	$Longitud = $_POST['Longitud'];
+
+
 
 	
 	
-	$sql = "INSERT INTO contactosensor1 (nombre,apellidos, edad,sexo, telefonofijo,telefonocelular)
-	 VALUES ('$nombre','$apellidos', '$edad','$sexo', '$telefonofijo','$telefonocelular')";
+	$sql = "INSERT INTO ubicasionsensor (Tipo_Instalacion, Nombre_empresa_o_Institucion, Colonia,Cp,Localidad,Municipio,Estado,Latitud,Longitud) 
+	VALUES ('$Tipo_Instalacion', '$Nombre_empresa_o_Institucion', '$Colonia', '$Cp', '$Localidad', '$Municipio', '$Estado', '$Latitud','$Longitud')";
 	$resultado = $mysqli->query($sql);
 	
 	

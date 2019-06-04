@@ -4,7 +4,7 @@
 
 	$id = $_GET['id'];
 	
-	$sql = "DELETE FROM contactosensor1 WHERE id = '$id'";
+	$sql = "DELETE FROM ubicasionsensor WHERE id = '$id'";
 	$resultado = $mysqli->query($sql);
 	
 ?>
