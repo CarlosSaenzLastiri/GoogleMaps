@@ -1,5 +1,5 @@
 <?php
-   require_once 'conexion.php';
+   require_once 'conexionOO.php';
    $user= $_POST["user"];
    $pass= $_POST["pass"];
 
@@ -8,14 +8,14 @@
    $row_cnt = $result->num_rows;
    $reg = mysqli_fetch_assoc($result);
 
-   if($row_cnt == 1) {
+   if($row_cntm == 1) {
    	session_start();
    	$respuesta = "si";
    	$_SESSION["usuario"] = $user;
    	$_SESSION["tipou"] = $reg["tipoUsuario"];
    }
    else {
-    	$respuesta = "Usuario y/o Contraseña Incorrectas";
+   	$respuesta = "Usuario y/o Contraseña Incorrectas";
    }
    echo $respuesta;
    
